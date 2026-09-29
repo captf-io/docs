@@ -5,7 +5,7 @@ the checklist, and installing the assets before or instead of publishing
 them.
 
 A release is a tag `vX.Y.Z` (or `vX.Y.Z-rc.N`) on a clean `main`, the
-manager image `ghcr.io/scrothers/cluster-api-provider-terraform:vX.Y.Z`, the
+manager image `ghcr.io/captf-io/cluster-api-provider-terraform:vX.Y.Z`, the
 noop example images, and a GitHub release with the clusterctl assets and the
 `tfcapi-lint` binaries. Tags never move and nothing is force-pushed: a bad
 release candidate gets a new `-rc.N`.
@@ -13,7 +13,7 @@ release candidate gets a new `-rc.N`.
 ## Before you begin
 
 - Write access to push a signed tag and create a GitHub release.
-- Registry push access for `ghcr.io/scrothers/cluster-api-provider-terraform`.
+- Registry push access for `ghcr.io/captf-io/cluster-api-provider-terraform`.
 - `gh` authenticated against this repository, for `make release-github`.
 - `skopeo`, for `make release` to read the pushed image's registry digest.
 
@@ -23,7 +23,7 @@ release candidate gets a new `-rc.N`.
 | --- | --- |
 | `infrastructure-components.yaml` | `make manifests-release`: `config/default` with the release image, and `CAPTF_MANAGER_IMAGE` set to the same image. |
 | `metadata.yaml` | The repository root file; `hack/check-metadata.sh` enforces an append-only `releaseSeries`. |
-| `cluster-template.yaml`, `cluster-template-clusterclass.yaml`, `clusterclass-noop.yaml`, `cluster-template-libvirt.yaml`, `identity.yaml`, `identity-libvirt.yaml` | [`templates/`](https://github.com/scrothers/cluster-api-provider-terraform/blob/main/templates/README.md). |
+| `cluster-template.yaml`, `cluster-template-clusterclass.yaml`, `clusterclass-noop.yaml`, `cluster-template-libvirt.yaml`, `identity.yaml`, `identity-libvirt.yaml` | [`templates/`](https://github.com/captf-io/cluster-api-provider-terraform/blob/main/templates/README.md). |
 | `tfcapi-lint-<os>-<arch>`, `tfcapi-lint-checksums.txt` | GoReleaser; see [tfcapi-lint](../module-author/tfcapi-lint.md). |
 
 The libvirt flavor's own module images (below) are not a release asset: they
@@ -33,7 +33,7 @@ are a development-host target, never published as part of `make release`.
 
 The libvirt flavor (`templates/cluster-template-libvirt.yaml`) defaults
 `TERRAFORM_CLUSTER_IMAGE` and `TERRAFORM_MACHINE_IMAGE` to
-`ghcr.io/scrothers/cluster-api-provider-terraform/libvirt-{cluster,machine}`,
+`ghcr.io/captf-io/cluster-api-provider-terraform/libvirt-{cluster,machine}`,
 tagged `v0.1.0-opentofu`. Those images are built with `make libvirt-images`
 and pushed with `make libvirt-images-push VERSION=v0.1.0` (tags and pushes
 `$(NOOP_REGISTRY)/libvirt-<role>:$(VERSION)-opentofu` for each module under

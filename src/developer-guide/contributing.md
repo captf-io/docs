@@ -56,7 +56,7 @@ binary `make` downloads for you.
    manifests`. `make verify-gen` (part of `make verify`) fails if either is
    stale.
 3. Format and lint: `make fmt lint`. `fmt` runs `gofmt -s` and `goimports
-   -local github.com/scrothers/cluster-api-provider-terraform`; `lint` runs
+   -local github.com/captf-io/cluster-api-provider-terraform`; `lint` runs
    `golangci-lint` (`.golangci.yml`) in every module, then kube-api-linter
    (`.golangci-kal.yml`) on `api/` and `tfcapi-lint module --strict` on the
    reference modules under `modules/`. `make lint-fix` reruns both linters
@@ -148,7 +148,7 @@ checkout>` (see [Writing Documentation](documentation.md#generated-pages)).
 `provider_repos`, and `terraform` to `enable_providers`. Tilt then builds and
 live-reloads only the manager binary (from `cmd`, `api`, `internal`,
 `go.mod` and `go.sum`) and substitutes its image for
-`ghcr.io/scrothers/cluster-api-provider-terraform` in `config/default`.
+`ghcr.io/captf-io/cluster-api-provider-terraform` in `config/default`.
 
 **Tilt never rebuilds the runner image.** A Job always takes its runner from
 `CAPTF_MANAGER_IMAGE`, which Tilt does not rewrite, so it stays whatever

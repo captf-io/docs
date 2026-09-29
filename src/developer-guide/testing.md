@@ -17,7 +17,7 @@ or `tofu`.
   `batch/v1.Job` CAPTF would create, and a runner test drives the runner's
   own logic directly, without a pod ever starting.
 - `internal/state`, `internal/outputs` and `internal/locks` instead read
-  real `kubernetes`-backend state: [`test/fixtures/state`](https://github.com/scrothers/cluster-api-provider-terraform/blob/main/test/fixtures/state/README.md)
+  real `kubernetes`-backend state: [`test/fixtures/state`](https://github.com/captf-io/cluster-api-provider-terraform/blob/main/test/fixtures/state/README.md)
   holds state Secrets and lock Leases captured once from real Terraform and
   OpenTofu runs, checked in as frozen data. Regenerating them needs a
   capture setup that does not exist in this repository; treat the files

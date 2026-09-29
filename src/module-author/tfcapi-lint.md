@@ -21,7 +21,7 @@ Every release attaches one binary per platform, plus a checksum file:
 | `tfcapi-lint-checksums.txt` | SHA-256 of every asset above |
 
 ```sh
-base="https://github.com/scrothers/cluster-api-provider-terraform/releases/download/<version>"
+base="https://github.com/captf-io/cluster-api-provider-terraform/releases/download/<version>"
 curl -fsSLO "${base}/tfcapi-lint-<os>-<arch>"
 curl -fsSLO "${base}/tfcapi-lint-checksums.txt"
 sha256sum --check --ignore-missing tfcapi-lint-checksums.txt

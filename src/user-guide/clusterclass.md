@@ -39,7 +39,7 @@ the Cluster field, so keep the two equal if you change one.
 
 The `libvirt` flavor is for the project's development host; see
 [the libvirt host guide](../developer-guide/libvirt-host.md) and
-[the libvirt module](https://github.com/scrothers/cluster-api-provider-terraform/blob/main/modules/libvirt/README.md).
+[the libvirt module](https://github.com/captf-io/cluster-api-provider-terraform/blob/main/modules/libvirt/README.md).
 Its identity template is `templates/identity-libvirt.yaml`, applied instead
 of the default `templates/identity.yaml`.
 

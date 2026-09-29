@@ -33,7 +33,7 @@ a config file naming its release manifest. The config entry's `name` is
 providers:
 - name: terraform
   type: InfrastructureProvider
-  url: https://github.com/scrothers/cluster-api-provider-terraform/releases/latest/infrastructure-components.yaml
+  url: https://github.com/captf-io/cluster-api-provider-terraform/releases/latest/infrastructure-components.yaml
 ```
 
 `url` can also name a specific tag instead of `latest`, or a `file://` path
@@ -99,7 +99,7 @@ and ClusterClass](../user-guide/clusterclass.md).
 ## The manager image and the runner image
 
 `clusterctl init` sets the manager container's image to the release's
-image, `ghcr.io/scrothers/cluster-api-provider-terraform:vX.Y.Z`. The same
+image, `ghcr.io/captf-io/cluster-api-provider-terraform:vX.Y.Z`. The same
 reference is also set as the `CAPTF_MANAGER_IMAGE` environment variable on
 that container: it is the default of `--runner-image`, the image the
 manager runs as the init container that injects the runner binary into

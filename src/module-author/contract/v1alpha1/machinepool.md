@@ -461,7 +461,7 @@ does not reflect it.
   rather than to 0. Drift may be sparse but membership never is.
 - **Drift order.** Drift for a pool is the same job every other kind
   runs — `apply -refresh-only` first, then `plan -detailed-exitcode`
-  ([`internal/runner/plan.go`](https://github.com/scrothers/cluster-api-provider-terraform/blob/main/internal/runner/plan.go))
+  ([`internal/runner/plan.go`](https://github.com/captf-io/cluster-api-provider-terraform/blob/main/internal/runner/plan.go))
   — and the controller does no plan-JSON filtering of the result: whatever the
   refreshed plan reports is drift. This is why the desired-count
   `lifecycle { ignore_changes = [...] }` in the `autoscaling` input is

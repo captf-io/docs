@@ -198,5 +198,5 @@ tests' lease data (a nested list attribute).
 
 - [Releasing](releasing.md), for the `libvirt` module images this host
   builds and pushes.
-- [`modules/libvirt/README.md`](https://github.com/scrothers/cluster-api-provider-terraform/blob/main/modules/libvirt/README.md)
+- [`modules/libvirt/README.md`](https://github.com/captf-io/cluster-api-provider-terraform/blob/main/modules/libvirt/README.md)
   for the module source itself.

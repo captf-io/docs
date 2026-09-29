@@ -48,7 +48,7 @@ applies to generated pages.
 These pages, and the contract schemas under
 `module-author/contract/v1alpha1/schemas`, are generated from a checkout of
 the provider repository
-([cluster-api-provider-terraform](https://github.com/scrothers/cluster-api-provider-terraform)),
+([cluster-api-provider-terraform](https://github.com/captf-io/cluster-api-provider-terraform)),
 not from anything in this repository. To change one, change the code or
 the Go doc comment it comes from there, then run `make docs-gen
 DOCS_DIR=<path to this checkout>` from the provider repository to rewrite
@@ -112,7 +112,7 @@ reasons, events, metrics and keys, and never copy those tables.
   including the anchor when you mean a section:
   `[drift](../concepts/drift-and-health.md#drift)`.
 - Link to files in the provider repository with a full
-  `https://github.com/scrothers/cluster-api-provider-terraform/blob/main/...`
+  `https://github.com/captf-io/cluster-api-provider-terraform/blob/main/...`
   URL. Relative links must not leave this repository's `src`.
 - Include real files instead of pasting them, with a path relative to the
   page: `\{{#include examples/Containerfile.opentofu}}` on a page next to
