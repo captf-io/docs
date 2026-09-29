@@ -2,7 +2,7 @@
 
 This page is the house style for the CAPTF book, which lives in this
 repository under `src` and is published at
-[https://docs.captf.io/](https://docs.captf.io/). Every page follows it,
+[https://captf.io/docs/](https://captf.io/docs/). Every page follows it,
 and `make verify` enforces the parts a tool can check.
 
 ## Where things go
@@ -133,7 +133,7 @@ In this repository, `make verify` runs:
 The provider repository checks this book's generated content against its
 own source, from a checkout of this repository passed as `DOCS_DIR`: `make
 verify-docs DOCS_DIR=<path>` (generated pages, contract schemas and
-examples) and `make docs-check` (that every `https://docs.captf.io/` URL
+examples) and `make docs-check` (that every `https://captf.io/docs/` URL
 named in the provider repository's code and Markdown resolves to a page
 and heading here). Neither is part of this repository's own `make verify`.
 

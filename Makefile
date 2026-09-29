@@ -1,4 +1,4 @@
-# The CAPTF documentation book (https://docs.captf.io/), split out of
+# The CAPTF documentation book (https://captf.io/docs/), split out of
 # cluster-api-provider-terraform. The pages live in src and render from
 # there; book.toml is at the repo root.
 #
@@ -114,9 +114,13 @@ verify-book: $(MDBOOK) $(MDBOOK_MERMAID) $(MERMAID_JS) ## Build the book and fai
 	if grep -qE '^[[:space:]]*(WARN|ERROR)[[:space:]]' <<<"$$out"; then \
 		echo "verify-book: mdbook reported WARN/ERROR" >&2; exit 1; fi
 
+# The book is served under /docs/ (book.toml site-url), so 404.html links
+# absolutely to /docs/...; --remap maps that prefix back onto bin/book.
 .PHONY: links
 links: verify-book $(LYCHEE) ## Check every internal link and #fragment in the rendered book (offline).
-	"$(LYCHEE)" --offline --include-fragments --root-dir "$(ROOT_DIR)/bin/book" "$(ROOT_DIR)/bin/book"
+	"$(LYCHEE)" --offline --include-fragments --root-dir "$(ROOT_DIR)/bin/book" \
+		--remap '^file://$(ROOT_DIR)/bin/book/docs(/|$$) file://$(ROOT_DIR)/bin/book/' \
+		"$(ROOT_DIR)/bin/book"
 
 .PHONY: lint-md
 lint-md: $(MARKDOWNLINT) ## Lint Markdown docs with markdownlint-cli2 (part of verify).

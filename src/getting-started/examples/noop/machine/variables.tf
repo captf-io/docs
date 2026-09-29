@@ -1,4 +1,4 @@
-# Contract inputs of the machine role, v1alpha1 (https://docs.captf.io/module-author/contract/v1alpha1/common.html
+# Contract inputs of the machine role, v1alpha1 (https://captf.io/docs/module-author/contract/v1alpha1/common.html
 # and machine.html).
 
 variable "captf_contract" {

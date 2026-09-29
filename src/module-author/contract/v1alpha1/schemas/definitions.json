@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://captf.io/schemas/v1alpha1/definitions.json",
   "title": "CAPTF contract v1alpha1: shared definitions",
-  "description": "Types shared by the role input and output schemas (https://docs.captf.io/module-author/contract/v1alpha1/common.html). Input objects are closed (additionalProperties: false) because the controller renders exactly these attributes; output objects are open because extra attributes are ignored (README.md \"Type conventions\"). Limits come from the CAPI v1.14.2 API markers cited per property.",
+  "description": "Types shared by the role input and output schemas (https://captf.io/docs/module-author/contract/v1alpha1/common.html). Input objects are closed (additionalProperties: false) because the controller renders exactly these attributes; output objects are open because extra attributes are ignored (README.md \"Type conventions\"). Limits come from the CAPI v1.14.2 API markers cited per property.",
   "$defs": {
     "captf_contract": {
       "description": "Contract version the inputs were generated for.",

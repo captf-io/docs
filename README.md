@@ -2,10 +2,10 @@
 
 This repository holds the documentation book for
 [cluster-api-provider-terraform][captf], published at
-[https://docs.captf.io/][site].
+[https://captf.io/docs/][site].
 
 [captf]: https://github.com/captf-io/cluster-api-provider-terraform
-[site]: https://docs.captf.io/
+[site]: https://captf.io/docs/
 
 ## Building
 

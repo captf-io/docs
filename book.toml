@@ -33,10 +33,11 @@ command = "mdbook-mermaid"
 [output.html]
 smart-punctuation = true
 git-repository-url = "https://github.com/captf-io/docs"
-# Published by .github/workflows/pages.yml. With an Actions deploy GitHub
-# takes the custom domain from the repository's Pages settings, not this
-# file; the CNAME it writes keeps the build self-describing.
-cname = "docs.captf.io"
+# Published by .github/workflows/pages.yml as the captf-io/docs project
+# site, which GitHub serves under the org site's domain at
+# https://captf.io/docs/. site-url makes the 404 page's links absolute
+# under that path.
+site-url = "/docs/"
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
 
 [output.html.fold]

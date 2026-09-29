@@ -1,5 +1,5 @@
 # Builds the book on every pull request and push to main, and publishes it
-# to GitHub Pages (https://docs.captf.io/) from main.
+# to GitHub Pages (https://captf.io/docs/) from main.
 #
 # The deploy gates on the book building cleanly and its links resolving
 # (make verify-book links), not on the Markdown and prose linters, so a

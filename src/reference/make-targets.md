@@ -67,7 +67,7 @@
 | `docs-gen` | Regenerate the book's generated pages (reference/, contract schemas, noop module copy) in DOCS_DIR. |
 | `docs-api` | Regenerate the book's reference/api.md in DOCS_DIR from api/v1alpha1 (hack/crd-ref-docs). |
 | `verify-docs-api` | Check that the book's reference/api.md in DOCS_DIR matches what docs-api would generate. |
-| `verify-docs` | Check the book in DOCS_DIR against this tree: generated pages, schemas, noop module copy, spec tables, quick start, example Containerfiles, docs.captf.io URLs. |
+| `verify-docs` | Check the book in DOCS_DIR against this tree: generated pages, schemas, noop module copy, spec tables, quick start, example Containerfiles, captf.io/docs URLs. |
 | `lint-docs-md` | Lint Markdown docs with markdownlint-cli2 (part of verify). |
 | `lint-docs-prose` | Lint doc prose with vale against the house style (part of verify). |
 

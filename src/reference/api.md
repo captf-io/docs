@@ -207,7 +207,7 @@ _Appears in:_
 _Underlying type:_ _string_
 
 HealthState mirrors the health.state enum of the module contract
-(internal/contract.HealthState, https://docs.captf.io/module-author/contract/v1alpha1/common.html), for
+(internal/contract.HealthState, https://captf.io/docs/module-author/contract/v1alpha1/common.html), for
 MachinePoolInstance.State.
 
 _Validation:_
@@ -338,7 +338,7 @@ MachinePoolDriftPolicy configures periodic drift detection of a
 TerraformMachinePool. Unlike MachineDriftPolicy, 0 is rejected by the CRD
 schema: for a pool it is membership refresh
 (TerraformMachinePoolSpec.MembershipRefreshIntervalSeconds), not drift,
-that keeps status fresh (https://docs.captf.io/module-author/contract/v1alpha1/machinepool.html
+that keeps status fresh (https://captf.io/docs/module-author/contract/v1alpha1/machinepool.html
 "Membership refresh"), and the drift Job itself feeds the refreshed
 replicas into its plan (machinepool.md "Drift order"), so disabling
 drift would also stop that refresh from ever reaching a plan.
@@ -356,7 +356,7 @@ _Appears in:_
 
 MachinePoolInstance is one entry of a TerraformMachinePool's
 status.instances, mapped from the module's instances output
-(https://docs.captf.io/module-author/contract/v1alpha1/machinepool.html "instances").
+(https://captf.io/docs/module-author/contract/v1alpha1/machinepool.html "instances").
 
 _Validation:_
 
@@ -815,7 +815,7 @@ TerraformMachinePoolSpec is the desired state of a TerraformMachinePool:
 the machinepool-role module image and how to run it. Unlike a
 TerraformMachine, every field here is mutable: the pool is re-applied on
 a spec change, a replica change or the bootstrap Secret's rotation
-(https://docs.captf.io/module-author/contract/v1alpha1/machinepool.html "Lifecycle").
+(https://captf.io/docs/module-author/contract/v1alpha1/machinepool.html "Lifecycle").
 
 _Validation:_
 
@@ -836,7 +836,7 @@ _Appears in:_
 | `variables` _[RawExtension](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.36/#rawextension-runtime-pkg)_ | variables are module variables, a JSON object: each key becomes a<br />named argument of the role module, converted by the module's declared<br />type. Keys are Terraform identifiers; captf_ names and the role's<br />contract inputs are reserved. Inline variables win over variablesFrom.<br />Whether a change re-applies or is rejected as immutable depends on the<br />kind. A key the module does not declare fails the apply ("Unsupported<br />argument"). | No | | MaxProperties: 256 <br /> MinProperties: 1 <br /> Type: object <br /> |
 | `variablesFrom` _[VariablesSource](#variablessource) array_ | variablesFrom reads module variables from ConfigMaps and Secrets in<br />this namespace labeled captf.io/variables=true, in list order: a later<br />source wins on the same key, and inline variables win over all of<br />them. Whether and when a change to a referenced source takes effect<br />depends on the kind. | No | | ExactlyOneOf: [configMapRef secretRef] <br /> MaxItems: 16 <br /> MinItems: 1 <br /> |
 | `drift` _[MachinePoolDriftPolicy](#machinepooldriftpolicy)_ | drift is merged field by field over the cluster's defaults.drift.<br />Unlike a machine's, a pool's drift may be remediated. | No | | |
-| `membershipRefreshIntervalSeconds` _integer_ | membershipRefreshIntervalSeconds is how often the controller runs<br />`apply -refresh-only` to pick up group membership changes (new or<br />departed instances) between applies, in seconds<br />(<https://docs.captf.io/module-author/contract/v1alpha1/machinepool.html> "Membership refresh"). 0 (unset)<br />means 60, applied at reconcile; the CRD schema's minimum of 15 makes 0<br />itself an invalid setting, so it unambiguously means unset, the same<br />convention as activeDeadlineSeconds and unhealthyThreshold<br />(kube-api-linter optionalfields: WhenRequired). | No | | Maximum: 86400 <br /> Minimum: 15 <br /> |
+| `membershipRefreshIntervalSeconds` _integer_ | membershipRefreshIntervalSeconds is how often the controller runs<br />`apply -refresh-only` to pick up group membership changes (new or<br />departed instances) between applies, in seconds<br />(<https://captf.io/docs/module-author/contract/v1alpha1/machinepool.html> "Membership refresh"). 0 (unset)<br />means 60, applied at reconcile; the CRD schema's minimum of 15 makes 0<br />itself an invalid setting, so it unambiguously means unset, the same<br />convention as activeDeadlineSeconds and unhealthyThreshold<br />(kube-api-linter optionalfields: WhenRequired). | No | | Maximum: 86400 <br /> Minimum: 15 <br /> |
 
 #### TerraformMachinePoolStatus
 

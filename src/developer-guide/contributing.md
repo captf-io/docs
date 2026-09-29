@@ -19,7 +19,7 @@ enforce, and running the manager under Tilt.
 
 The book itself lives in a separate repository,
 [captf-io/docs](https://github.com/captf-io/docs), published at
-[https://docs.captf.io/](https://docs.captf.io/); see
+[https://captf.io/docs/](https://captf.io/docs/); see
 [Writing Documentation](documentation.md).
 
 Each Go module (`.` and `api`) is listed in `go.work`. `hack/verify-modules.sh`

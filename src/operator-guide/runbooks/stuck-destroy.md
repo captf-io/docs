@@ -157,7 +157,7 @@ are exactly what you chose to keep.
 If the object reports `ApplyJobSucceeded=False`/`DestroyFailed` with the
 message "The durable inputs Secret is missing, so destroy cannot be
 rendered; see
-<https://docs.captf.io/operator-guide/runbooks/stuck-destroy.html>", the
+<https://captf.io/docs/operator-guide/runbooks/stuck-destroy.html>", the
 durable inputs Secret (`captf-inputs-<kindshort>-<name>`: the rendered root
 module, tfvars and pinned image from the last successful apply — see [Job
 Inputs](../../concepts/inputs.md)) was deleted or never written.
