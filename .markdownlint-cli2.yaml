@@ -1,0 +1,49 @@
+# markdownlint-cli2 config for `make lint-md` (hack/tools/markdownlint,
+# pinned via package.json/package-lock.json). Part of `make verify`.
+# https://github.com/DavidAnson/markdownlint
+
+config:
+  default: true
+
+  # 80-column prose; tables, code blocks and headings are exempt since they
+  # commonly carry long unwrappable content (URLs, wide columns, CLI output).
+  MD013:
+    line_length: 80
+    tables: false
+    code_blocks: false
+    headings: false
+
+  # The docs use inline HTML in a few places (e.g. line breaks in tables).
+  MD033: false
+
+  # Consistent emphasis/strong/list markers within a document, not a single
+  # global mandated style.
+  MD004:
+    style: consistent
+  MD029:
+    style: one_or_ordered
+  MD049:
+    style: consistent
+  MD050:
+    style: consistent
+
+  # Tables use the compact style: `| a | b |` with a `| --- |` separator
+  # row, which is what internal/docsgen in the provider repo writes.
+  MD060:
+    style: compact
+
+# SUMMARY.md uses one `#` per book section by mdBook's own design, which is
+# not a document title and not a single-H1 violation.
+overrides:
+  - filter: ["src/SUMMARY.md"]
+    combine: merge
+    config:
+      MD025: false
+
+globs:
+  - "README.md"
+  - "src/**/*.md"
+
+ignores:
+  - "bin/**"
+  - "hack/tools/**"

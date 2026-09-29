@@ -1,0 +1,52 @@
+# Reference source image, Terraform base (docs/book/src/module-author/image-contract.md "Reference:
+# Terraform base"). Run from your module's root directory:
+#
+#   podman build -f Containerfile.terraform --build-arg ROLE=cluster \
+#     --build-arg IMAGE_SOURCE=https://github.com/<org>/<repo> \
+#     --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" \
+#     --build-arg IMAGE_VERSION=<tag> -t <registry>/<repo>:<tag> .
+#
+# The image tag is the module version. Lint first:
+#   tfcapi-lint module . --role cluster --strict
+
+ARG RUNTIME_VERSION=1.16.4
+# The org.opencontainers.image.* labels below (image-contract.md "OCI
+# labels"): leave these unset for a local/test build, or pass them from
+# your CI pipeline (source repo URL, commit SHA, the image tag).
+ARG IMAGE_SOURCE=""
+ARG IMAGE_REVISION=""
+ARG IMAGE_VERSION=""
+
+# Optional but recommended: hermetic provider mirror for the platforms you
+# publish. Needs registry egress at build time; drop this stage (and the
+# COPY --from=mirror below) for a non-hermetic image.
+FROM docker.io/hashicorp/terraform:${RUNTIME_VERSION} AS mirror
+WORKDIR /src
+COPY . /src
+# get: `providers mirror` refuses a module whose nested local modules are not
+# installed; get installs them (no providers), in this stage only.
+# mkdir: `providers mirror` does not create the target when the module
+# requires no providers, and the COPY --from=mirror below needs it.
+RUN terraform get \
+ && mkdir -p /captf/providers \
+ && terraform providers mirror -platform=linux_amd64 -platform=linux_arm64 /captf/providers
+
+FROM docker.io/hashicorp/terraform:${RUNTIME_VERSION}
+ARG ROLE=cluster
+ARG RUNTIME_VERSION
+ARG IMAGE_SOURCE
+ARG IMAGE_REVISION
+ARG IMAGE_VERSION
+COPY --from=mirror /captf/providers /captf/providers
+COPY . /captf/module
+RUN ln -s /bin/terraform /captf/runtime \
+ && adduser -D -u 65532 captf \
+ && chown -R 65532:65532 /captf
+USER 65532
+LABEL io.captf.contract="v1alpha1" \
+      io.captf.role="${ROLE}" \
+      io.captf.runtime="terraform" \
+      io.captf.runtime.version="${RUNTIME_VERSION}" \
+      org.opencontainers.image.source="${IMAGE_SOURCE}" \
+      org.opencontainers.image.revision="${IMAGE_REVISION}" \
+      org.opencontainers.image.version="${IMAGE_VERSION}"

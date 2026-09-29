@@ -1,0 +1,21 @@
+# Build output
+/bin/
+
+# Pinned tools are downloaded by the Makefile; keep the directory itself.
+/hack/tools/bin/*
+!/hack/tools/bin/.gitkeep
+
+# markdownlint-cli2 is installed hermetically from the committed
+# package.json/package-lock.json (make lint-md); node_modules is not.
+/hack/tools/markdownlint/node_modules/
+
+# Extracted from the pinned mdbook-mermaid binary by the book targets.
+/mermaid.min.js
+/mermaid-init.js
+
+# Local tooling and editor state
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store

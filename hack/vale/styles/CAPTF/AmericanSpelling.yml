@@ -1,0 +1,44 @@
+extends: substitution
+message: "Use American spelling: '%s' instead of '%s'."
+level: warning
+ignorecase: false
+action:
+  name: replace
+swap:
+  behaviour: behavior
+  behaviours: behaviors
+  behavioural: behavioral
+  labelled: labeled
+  labelling: labeling
+  licence: license
+  licences: licenses
+  licenced: licensed
+  colour: color
+  colours: colors
+  coloured: colored
+  colouring: coloring
+  organise: organize
+  organised: organized
+  organises: organizes
+  organising: organizing
+  organisation: organization
+  organisations: organizations
+  centre: center
+  centres: centers
+  centred: centered
+  favour: favor
+  favours: favors
+  favoured: favored
+  optimise: optimize
+  optimised: optimized
+  optimising: optimizing
+  initialise: initialize
+  initialised: initialized
+  initialising: initializing
+  serialise: serialize
+  serialised: serialized
+  serialising: serializing
+  cancelled: canceled
+  cancelling: canceling
+  modelled: modeled
+  modelling: modeling

@@ -1,0 +1,60 @@
+# Reference source image, OpenTofu base (docs/book/src/module-author/image-contract.md "Reference:
+# OpenTofu base"). Run from your module's root directory:
+#
+#   podman build -f Containerfile.opentofu --build-arg ROLE=machine \
+#     --build-arg IMAGE_SOURCE=https://github.com/<org>/<repo> \
+#     --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" \
+#     --build-arg IMAGE_VERSION=<tag> -t <registry>/<repo>:<tag> .
+#
+# The image tag is the module version. Lint first:
+#   tfcapi-lint module . --role machine --strict
+#
+# The full ghcr.io/opentofu/opentofu image refuses to be a FROM base
+# (ONBUILD RUN exit 1); use the -minimal tag via COPY --from as below.
+
+ARG RUNTIME_VERSION=1.12.6
+# The org.opencontainers.image.* labels below (image-contract.md "OCI
+# labels"): leave these unset for a local/test build, or pass them from
+# your CI pipeline (source repo URL, commit SHA, the image tag).
+ARG IMAGE_SOURCE=""
+ARG IMAGE_REVISION=""
+ARG IMAGE_VERSION=""
+
+FROM ghcr.io/opentofu/opentofu:${RUNTIME_VERSION}-minimal AS tofu
+
+# Optional but recommended: hermetic provider mirror for the platforms you
+# publish. Needs registry egress at build time; drop this stage (and the
+# COPY --from=mirror below) for a non-hermetic image.
+FROM docker.io/library/alpine:3.22 AS mirror
+RUN apk add --no-cache ca-certificates
+COPY --from=tofu /usr/local/bin/tofu /usr/local/bin/tofu
+WORKDIR /src
+COPY . /src
+# get: `providers mirror` refuses a module whose nested local modules are not
+# installed; get installs them (no providers), in this stage only.
+# mkdir: `providers mirror` does not create the target when the module
+# requires no providers, and the COPY --from=mirror below needs it.
+RUN tofu get \
+ && mkdir -p /captf/providers \
+ && tofu providers mirror -platform=linux_amd64 -platform=linux_arm64 /captf/providers
+
+FROM docker.io/library/alpine:3.22
+ARG ROLE=machine
+ARG RUNTIME_VERSION
+ARG IMAGE_SOURCE
+ARG IMAGE_REVISION
+ARG IMAGE_VERSION
+RUN apk add --no-cache ca-certificates \
+ && adduser -D -u 65532 captf
+COPY --from=tofu /usr/local/bin/tofu /captf/runtime
+COPY --from=mirror /captf/providers /captf/providers
+COPY . /captf/module
+RUN chown -R 65532:65532 /captf
+USER 65532
+LABEL io.captf.contract="v1alpha1" \
+      io.captf.role="${ROLE}" \
+      io.captf.runtime="tofu" \
+      io.captf.runtime.version="${RUNTIME_VERSION}" \
+      org.opencontainers.image.source="${IMAGE_SOURCE}" \
+      org.opencontainers.image.revision="${IMAGE_REVISION}" \
+      org.opencontainers.image.version="${IMAGE_VERSION}"

@@ -1,0 +1,14 @@
+# The project name is "OpenTofu" (one word, capital O and T). Case-sensitive
+# so this never fires on the correct spelling.
+extends: existence
+message: "Use 'OpenTofu' casing, not '%s'."
+level: error
+ignorecase: false
+tokens:
+  - Opentofu
+  - OPENTOFU
+  - opentofu
+  - open tofu
+  - Open tofu
+  - open Tofu
+  - Open Tofu

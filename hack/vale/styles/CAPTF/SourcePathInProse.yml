@@ -1,0 +1,10 @@
+# A repo source path or bare .go filename in running prose is easy to miss
+# when the file moves; a suggestion, not an error, since the runbooks and
+# quick-start/operations pages cite exact paths and line numbers on purpose.
+extends: existence
+message: "Source reference '%s' in prose; consider a link instead."
+level: suggestion
+scope: paragraph
+raw:
+  - '\b(?:internal|cmd|api|hack|config|modules|templates)/[A-Za-z0-9_./-]+\b'
+  - '\b[A-Za-z0-9_-]+\.go\b'

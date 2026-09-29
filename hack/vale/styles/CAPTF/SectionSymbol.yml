@@ -1,0 +1,7 @@
+# Spell out "section" instead of using the § mark.
+extends: existence
+message: "Avoid '§' section references; spell out the section instead."
+level: warning
+nonword: true
+tokens:
+  - "§"

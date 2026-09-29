@@ -1,0 +1,8 @@
+{
+  "name": "captf-docs-markdownlint",
+  "private": true,
+  "description": "Pinned markdownlint-cli2 for `make lint-docs-md`; not published.",
+  "devDependencies": {
+    "markdownlint-cli2": "0.23.3"
+  }
+}

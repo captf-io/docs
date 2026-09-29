@@ -1,0 +1,40 @@
+# The CAPTF book, laid out like the Cluster API book. The pages live in
+# src and render from there.
+# Build with `make build`, preview with `make serve`, check for mdBook
+# WARN/ERROR with `make verify-book`, and check the rendered links and
+# #fragments with `make links` (all in the Makefile).
+
+[book]
+authors = ["The CAPTF Maintainers"]
+language = "en"
+src = "src"
+title = "The Cluster API Provider Terraform Book"
+
+[build]
+build-dir = "bin/book"
+# Relative to the book root (this repo's root, where this file lives), not
+# to src.
+# The default index preprocessor renders README.md as index.html but leaves
+# links to README.md pointing at README.html; without it the pages keep their
+# names and the links resolve. The html renderer still writes index.html.
+use-default-preprocessors = false
+# A SUMMARY entry without a file is an error, not a silently created page.
+create-missing = false
+
+[preprocessor.links]
+
+[preprocessor.mermaid]
+# The pinned binary's path is injected by the Makefile via the
+# MDBOOK_preprocessor__mermaid__command environment override (build-book,
+# serve-book, verify-book); "mdbook-mermaid" here is only the fallback for
+# running mdbook by hand with the tool on PATH.
+command = "mdbook-mermaid"
+
+[output.html]
+smart-punctuation = true
+git-repository-url = "https://github.com/captf-io/docs"
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[output.html.fold]
+enable = true
+level = 0
