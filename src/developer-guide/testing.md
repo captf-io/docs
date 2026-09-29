@@ -72,14 +72,16 @@ compare against it on every run, rather than asserting field by field:
 | `internal/jobs` | The `batch/v1.Job` of every operation, as YAML. |
 | `internal/outputs` | Rendered output fixtures. |
 | `internal/render` | The generated root module. |
-| `internal/docsgen`, `internal/metrics` | The generated reference pages under `docs/book/src/reference` (see [Writing Documentation](documentation.md#generated-pages)). |
+| `internal/docsgen`, `internal/metrics` | The generated reference pages in a `captf-io/docs` checkout (see [Writing Documentation](documentation.md#generated-pages)). |
 | `cmd/tfcapi-lint` | Its `--json` output. |
 
 Run the affected test with `UPDATE_SNAPSHOTS=1` to rewrite its golden files,
 then read the diff before committing it — a passing rewrite is not the same
-as a correct one. `make docs-gen` does exactly this for the generated
-reference pages: `UPDATE_SNAPSHOTS=1 go test ./internal/docsgen/...
-./internal/metrics/... -run 'Docs|Golden'`.
+as a correct one. `internal/docsgen`'s and `internal/metrics`'s golden
+tests need `DOCS_DIR` (an absolute path to a `captf-io/docs` checkout) and
+skip without it; `make docs-gen DOCS_DIR=<path>` does exactly this for the
+generated reference pages: `DOCS_DIR=<path> UPDATE_SNAPSHOTS=1 go test
+./internal/docsgen/... ./internal/metrics/... -run 'Docs|Golden'`.
 
 ## Running one package, or one test
 

@@ -1,8 +1,9 @@
 # Writing Documentation
 
-This page is the house style for the CAPTF book. Every page in
-`docs/book/src` follows it, and `make verify`, `make lint-docs-md` and
-`make lint-docs-prose` enforce the parts a tool can check.
+This page is the house style for the CAPTF book, which lives in this
+repository under `src` and is published at
+[https://docs.captf.io/](https://docs.captf.io/). Every page follows it,
+and `make verify` enforces the parts a tool can check.
 
 ## Where things go
 
@@ -43,10 +44,18 @@ rewrapping source text, so each generated page also carries a
 by" comment so it also covers that comment's own line, that scopes the
 line-length rule off for that page only; every other Markdown rule still
 applies to generated pages.
-To change one, change the code or the Go doc comment it comes from, then run
-`make docs-gen`.
-`make test` fails when a generated page is stale, and `make verify` fails
-when the API reference is.
+
+These pages, and the contract schemas under
+`module-author/contract/v1alpha1/schemas`, are generated from a checkout of
+the provider repository
+([cluster-api-provider-terraform](https://github.com/scrothers/cluster-api-provider-terraform)),
+not from anything in this repository. To change one, change the code or
+the Go doc comment it comes from there, then run `make docs-gen
+DOCS_DIR=<path to this checkout>` from the provider repository to rewrite
+the pages here. `make verify-docs DOCS_DIR=<path to this checkout>`, also
+run from the provider repository, fails when a generated page, schema copy
+or example is stale; this repository's own `make verify` does not check
+staleness, since it has no access to the provider repository's source.
 
 Hand-written pages link to the generated ones for field lists, flags,
 reasons, events, metrics and keys, and never copy those tables.
@@ -102,9 +111,9 @@ reasons, events, metrics and keys, and never copy those tables.
 - Link to other book pages with relative links to the `.md` file,
   including the anchor when you mean a section:
   `[drift](../concepts/drift-and-health.md#drift)`.
-- Link to repository files that are not book pages with a full
+- Link to files in the provider repository with a full
   `https://github.com/scrothers/cluster-api-provider-terraform/blob/main/...`
-  URL. Relative links must not leave `docs/book/src`.
+  URL. Relative links must not leave this repository's `src`.
 - Include real files instead of pasting them, with a path relative to the
   page: `\{{#include examples/Containerfile.opentofu}}` on a page next to
   the `examples/` directory.
@@ -112,14 +121,20 @@ reasons, events, metrics and keys, and never copy those tables.
 
 ## Checks
 
-| Command | Checks | In `make verify` |
-| --- | --- | --- |
-| `make docs-check` | Relative links, repository URLs and their anchors, and `docs/` paths named in code | Yes |
-| `make verify-book` | The book builds with no mdBook warnings | Yes |
-| `make docs-links` | Every link and anchor in the rendered book | Yes |
-| `make verify-docs-api` | `reference/api.md` matches the API types | Yes |
-| `make test` | The other generated pages match the code | No; run it too |
-| `make lint-docs-md` | Markdown structure and line length | Yes |
-| `make lint-docs-prose` | The house style above, with Vale | Yes |
+In this repository, `make verify` runs:
 
-Preview the book with `make serve-book` and open <http://localhost:3001>.
+| Command | Checks |
+| --- | --- |
+| `make verify-book` | The book builds with no mdBook warnings |
+| `make links` | Every link and anchor in the rendered book |
+| `make lint-md` | Markdown structure and line length |
+| `make lint-prose` | The house style above, with Vale |
+
+The provider repository checks this book's generated content against its
+own source, from a checkout of this repository passed as `DOCS_DIR`: `make
+verify-docs DOCS_DIR=<path>` (generated pages, contract schemas and
+examples) and `make docs-check` (that every `https://docs.captf.io/` URL
+named in the provider repository's code and Markdown resolves to a page
+and heading here). Neither is part of this repository's own `make verify`.
+
+Preview the book with `make serve` and open <http://localhost:3001>.

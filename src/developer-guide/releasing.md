@@ -53,9 +53,10 @@ time to point at a different tag).
    [contract changelog](../module-author/contract/v1alpha1/CHANGELOG.md) for
    anything that changes what a module sees or must implement, and
    [Upgrades](../operator-guide/upgrades.md) for anything an operator needs
-   to do when moving to this release. Run `make docs-gen` so the generated
-   reference pages ([Writing Documentation](documentation.md#generated-pages))
-   match the code going into the release.
+   to do when moving to this release. Run `make docs-gen DOCS_DIR=<path to
+   a captf-io/docs checkout>` so the generated reference pages ([Writing
+   Documentation](documentation.md#generated-pages)) match the code going
+   into the release, then commit and push the result in that checkout too.
 3. `make lint test verify` is green. `verify` includes
    `verify-local-repository`, which generates the provider and the default,
    clusterclass and libvirt flavors from a clusterctl local repository of

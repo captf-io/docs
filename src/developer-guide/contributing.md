@@ -15,8 +15,12 @@ enforce, and running the manager under Tilt.
 | `templates/` | The `clusterctl generate` templates and flavors. |
 | `modules/` | Reference Terraform/OpenTofu modules: `noop` (with its variants) and `libvirt`. |
 | `hack/` | Build and verify tooling: pinned tool installers under `hack/tools`, the `verify-*.sh`/`check-*.sh` scripts `make verify` runs, `hack/godoccheck`, and the `vale` house style under `hack/vale`. |
-| `docs/book/src` | This book. |
 | `test/fixtures` | Frozen fixtures unit tests read, such as real captured Terraform/OpenTofu state. |
+
+The book itself lives in a separate repository,
+[captf-io/docs](https://github.com/captf-io/docs), published at
+[https://docs.captf.io/](https://docs.captf.io/); see
+[Writing Documentation](documentation.md).
 
 Each Go module (`.` and `api`) is listed in `go.work`. `hack/verify-modules.sh`
 (`make verify`) checks that neither carries a `replace` directive and that
@@ -62,9 +66,10 @@ binary `make` downloads for you.
    everything.
 5. Before sending a change, run `make verify`: every check listed in
    [Make Targets](../reference/make-targets.md#verify), including that
-   generated code and the API reference are current, that the book builds
-   and links resolve, and that `make lint-docs-md` and `make lint-docs-prose`
-   are clean.
+   generated code and the API reference are current and that
+   `make lint-docs-md` and `make lint-docs-prose` are clean. A change that
+   touches a generated page needs a `captf-io/docs` checkout too: see
+   [Writing Documentation](documentation.md#generated-pages).
 6. `make build` compiles every `cmd/*` binary to `bin/`; never to the
    repository root. `make run` builds and runs the
    manager out of cluster against your current `kubeconfig`, for a quick
@@ -95,14 +100,17 @@ The full target list, grouped the same way, is in
   - Every non-generated, non-external-test package has a `doc.go` whose
     package comment is a real overview of at least 400 characters.
 - **Generated code**: `zz_generated.deepcopy.go` and the CRD/RBAC/webhook
-  manifests come from `make generate manifests`; the reference pages under
-  `docs/book/src/reference` come from `make docs-gen` (see
-  [Writing Documentation](documentation.md#generated-pages)). Never hand-edit
-  a generated file: `make verify-gen` fails when the deepcopy code or the
-  manifests no longer match their source, and `make test` fails when a
-  generated reference page does.
+  manifests come from `make generate manifests`; the book's reference pages
+  come from `make docs-gen DOCS_DIR=<path to a captf-io/docs checkout>`
+  (see [Writing Documentation](documentation.md#generated-pages)). Never
+  hand-edit a generated file: `make verify-gen` fails when the deepcopy
+  code or the manifests no longer match their source, and `make verify-docs
+  DOCS_DIR=<path>` fails when a generated reference page does.
 
 ## Common changes
+
+Each `make docs-gen` below needs `DOCS_DIR=<path to a captf-io/docs
+checkout>` (see [Writing Documentation](documentation.md#generated-pages)).
 
 - **Adding a manager flag**: also add it to the `managerFlagGroups` map in
   `internal/docsgen/manager.go`, naming the reference-page heading it
