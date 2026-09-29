@@ -1,7 +1,7 @@
 # CAPTF metrics
 
 <!-- markdownlint-disable MD013 -->
-<!-- Generated from internal/metrics.Specs; refresh with UPDATE_SNAPSHOTS=1 go test ./internal/metrics. -->
+<!-- Generated from internal/metrics.Specs in cluster-api-provider-terraform; do not edit. Regenerate there with `make docs-gen DOCS_DIR=<this checkout>`. -->
 
 Declared with k8s.io/component-base/metrics (as Kubernetes components declare their own), all at StabilityLevel ALPHA; component-base prefixes every HELP string below with `[ALPHA]` and a space on the wire. Served on the diagnostics endpoint (`--diagnostics-address`) on controller-runtime's registry, merged by internal/metrics.Bridge with controller-runtime's own defaults (`controller_runtime_*`, `workqueue_*`, `rest_client_*`) and component-base's legacyregistry (`kubernetes_feature_enabled` and any other component-base series; its `go_*` and `process_*` families are dropped, already served by controller-runtime's own registry). Labels are bounded enums (`kind`, `op`, `result`, `reason`, `step`, `action`, `error_kind`); only the 8 per-object gauges carry `namespace` and `name`, and they are removed with their object.
 

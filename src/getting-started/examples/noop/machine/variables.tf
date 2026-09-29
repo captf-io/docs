@@ -1,5 +1,5 @@
-# Contract inputs of the machine role, v1alpha1 (docs/book/src/module-author/contract/v1alpha1:
-# common.md and machine.md).
+# Contract inputs of the machine role, v1alpha1 (https://docs.captf.io/module-author/contract/v1alpha1/common.html
+# and machine.html).
 
 variable "captf_contract" {
   type = string
